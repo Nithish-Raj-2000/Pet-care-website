@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | STACKLY Premium Pet Care</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="preloader" class="preloader"><div class="paw-loader"><i class="fas fa-paw"></i></div></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-paw"></i> STACKLY</a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="vet-care.html" class="nav-link">Vet Care</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-buttons-mobile">
+                    <a href="login.html" class="btn btn-outline">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </li>
+            </ul>
+            <div class="nav-buttons desktop-only">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+                <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+            <div class="hamburger" id="hamburger"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="banner-bg" style="background-image:url('src/images/pet-shop.webp');"></div>
+        <div class="banner-overlay"></div>
+        <i class="fas fa-shopping-bag banner-paw" style="top:16%;left:6%;font-size:4rem;animation-delay:0s;"></i>
+        <i class="fas fa-paw banner-paw" style="top:58%;left:12%;font-size:3.2rem;animation-delay:2s;"></i>
+        <i class="fas fa-tag banner-paw" style="top:20%;right:9%;font-size:3.8rem;animation-delay:1s;"></i>
+        <i class="fas fa-paw banner-paw" style="bottom:24%;right:14%;font-size:2.8rem;animation-delay:3.2s;"></i>
+        <i class="fas fa-gift banner-paw" style="top:42%;left:47%;font-size:5rem;animation-delay:4.5s;opacity:0.04;"></i>
+        <div class="container reveal">
+            <div class="breadcrumb">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <span class="bc-sep">/</span>
+                <span class="bc-current">Pet Boutique</span>
+            </div>
+            <div class="banner-badge"><i class="fas fa-shopping-bag"></i> STACKLY Boutique</div>
+            <h1 class="title">Pet Boutique</h1>
+            <p>Vet-approved, pet-adored. Shop premium food, toys, accessories, and more — delivered fast to your door.</p>
+            <div class="banner-stats">
+                <div class="banner-stat">
+                    <span class="banner-stat-value">100+</span>
+                    <span class="banner-stat-label">Products</span>
+                </div>
+                <div class="banner-stat-sep"></div>
+                <div class="banner-stat">
+                    <span class="banner-stat-value">Free</span>
+                    <span class="banner-stat-label">Shipping Over $50</span>
+                </div>
+                <div class="banner-stat-sep"></div>
+                <div class="banner-stat">
+                    <span class="banner-stat-value">Vet</span>
+                    <span class="banner-stat-label">Approved Products</span>
+                </div>
+                <div class="banner-stat-sep"></div>
+                <div class="banner-stat">
+                    <span class="banner-stat-value">5 ★</span>
+                    <span class="banner-stat-label">Customer Rated</span>
+                </div>
+            </div>
+            <div class="banner-cta">
+                <a href="404.html" class="btn btn-primary"><i class="fas fa-search"></i> Browse Products</a>
+                <a href="404.html" class="btn btn-ghost"><i class="fas fa-tag"></i> View Deals</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="section-divider"><i class="fas fa-paw"></i></div>
+
+    <section id="shop" class="shop">
+        <div class="container">
+            <!-- Promo Banner -->
+            <div class="promo-banner reveal">
+                <div class="promo-content">
+                    <h3>Special Spring Sale!</h3>
+                    <p>Get 20% off on all premium pet food and accessories this week.</p>
+                    <a href="404.html" class="btn btn-light btn-large">Shop The Sale</a>
+                </div>
+                <div class="promo-image" style="max-width: 300px; display: none;">
+                    <!-- Hide on mobile via css if needed, leaving inline for simplicity -->
+                </div>
+            </div>
+
+            <!-- Why Shop With Us -->
+            <div class="features-shop-row" style="display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; margin-bottom: 50px; overflow: visible;">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-award"></i></div>
+                    <h4>Quality Guaranteed</h4>
+                    <p>We only stock products that meet our high standards for quality and safety.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                    <h4>Natural Ingredients</h4>
+                    <p>Our food and treats are made with natural, healthy ingredients your pet will love.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shipping-fast"></i></div>
+                    <h4>Fast Delivery</h4>
+                    <p>Get your pet's favorites delivered right to your door, quickly and reliably.</p>
+                </div>
+            </div>
+
+            <div class="shop-controls reveal">
+                <div class="search-bar">
+                    <input type="text" id="shop-search" placeholder="Search products...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="food">Food</button>
+                    <button class="filter-btn" data-filter="toys">Toys</button>
+                    <button class="filter-btn" data-filter="accessories">Accessories</button>
+                </div>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <div class="product-card reveal" data-category="food">
+                    <a href="404.html" class="wishlist-btn"><i class="far fa-heart"></i></a>
+                    <div class="product-img">
+                        <img src="src/images/dog-running.webp" alt="Premium Dog Food" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+                        <h4>Premium Dog Food</h4>
+                        <div class="price-row">
+                            <span class="price">$45.00</span>
+                            <a href="404.html" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart"></i> Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card reveal" data-category="toys">
+                    <a href="404.html" class="wishlist-btn"><i class="far fa-heart"></i></a>
+                    <div class="product-img">
+                        <img src="src/images/cat-portrait.webp" alt="Interactive Cat Toy" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="rating"><i class="fas fa-star"></i> 4.7</div>
+                        <h4>Interactive Cat Toy</h4>
+                        <div class="price-row">
+                            <span class="price">$15.50</span>
+                            <a href="404.html" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart"></i> Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card reveal" data-category="accessories">
+                    <a href="404.html" class="wishlist-btn"><i class="far fa-heart"></i></a>
+                    <div class="product-img">
+                        <img src="src/images/dog-hero.webp" alt="Leather Collar" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+                        <h4>Luxury Leather Collar</h4>
+                        <div class="price-row">
+                            <span class="price">$25.00</span>
+                            <a href="404.html" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart"></i> Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card reveal" data-category="accessories">
+                    <a href="404.html" class="wishlist-btn"><i class="far fa-heart"></i></a>
+                    <div class="product-img">
+                        <img src="src/images/dogs-running.webp" alt="Plush Pet Bed" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="rating"><i class="fas fa-star"></i> 5.0</div>
+                        <h4>Cloud Plush Pet Bed</h4>
+                        <div class="price-row">
+                            <span class="price">$60.00</span>
+                            <a href="404.html" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart"></i> Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card reveal" data-category="food">
+                    <a href="404.html" class="wishlist-btn"><i class="far fa-heart"></i></a>
+                    <div class="product-img">
+                        <img src="src/images/cat-sitting.webp" alt="Organic Cat Food" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+                        <h4>Organic Cat Food</h4>
+                        <div class="price-row">
+                            <span class="price">$32.00</span>
+                            <a href="404.html" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart"></i> Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card reveal" data-category="toys">
+                    <a href="404.html" class="wishlist-btn"><i class="far fa-heart"></i></a>
+                    <div class="product-img">
+                        <img src="src/images/golden-retriever-2.webp" alt="Rope Toy" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="rating"><i class="fas fa-star"></i> 4.6</div>
+                        <h4>Durable Rope Toy</h4>
+                        <div class="price-row">
+                            <span class="price">$12.00</span>
+                            <a href="404.html" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart"></i> Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card reveal" data-category="accessories">
+                    <a href="404.html" class="wishlist-btn"><i class="far fa-heart"></i></a>
+                    <div class="product-img">
+                        <img src="src/images/dogs-playing.webp" alt="Travel Carrier" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+                        <h4>Airline-Approved Carrier</h4>
+                        <div class="price-row">
+                            <span class="price">$75.00</span>
+                            <a href="404.html" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart"></i> Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card reveal" data-category="food">
+                    <a href="404.html" class="wishlist-btn"><i class="far fa-heart"></i></a>
+                    <div class="product-img">
+                        <img src="src/images/pet-accessories.webp" alt="Healthy Treats" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="rating"><i class="fas fa-star"></i> 5.0</div>
+                        <h4>Healthy Dental Treats</h4>
+                        <div class="price-row">
+                            <span class="price">$9.99</span>
+                            <a href="404.html" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart"></i> Add</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo text-white">
+                        <i class="fas fa-paw"></i> STACKLY
+                    </a>
+                    <p class="mt-2">Premium pet care services, grooming, boarding, training, and veterinary support—all under one trusted roof.</p>
+                    <div class="social-icons mt-3">
+                        <a href="404.html"><i class="fab fa-facebook-f"></i></a>
+                        <a href="404.html"><i class="fab fa-twitter"></i></a>
+                        <a href="404.html"><i class="fab fa-instagram"></i></a>
+                        <a href="404.html"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="vet-care.html">Vet Care</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Pet Avenue, NY 10001</li>
+                        <li><i class="fas fa-phone-alt"></i> +1 (800) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> hello@stackly.com</li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Get the latest pet care tips and exclusive offers delivered to your inbox.</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); window.showToast && showToast('Thank you for subscribing!', 'success');">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i> Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 STACKLY Pet Care. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="script.js"></script>
+</body>
+</html>

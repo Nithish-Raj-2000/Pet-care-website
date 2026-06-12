@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | STACKLY Premium Pet Care</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ── Visual panel content centred vertically ─────────────────── */
+        .auth-visual-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            width: 100%;
+            max-width: 420px;
+        }
+        .auth-visual-content h2   { font-size: 1.75rem !important; margin-bottom: 12px !important; }
+        .auth-visual-content > p  { font-size: 0.97rem !important; margin-bottom: 18px !important; opacity: .88; }
+        .auth-visual-content ul   { margin-bottom: 0; }
+        .auth-visual-content li   { margin-bottom: 10px !important; font-size: 0.95rem; }
+
+        /* Two-column field row */
+        .su-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        @media (max-width: 540px) { .su-row { grid-template-columns: 1fr; } }
+
+        /* Password strength bar */
+        .su-strength-wrap {
+            margin-top: 6px;
+            display: none;
+        }
+        .su-strength-wrap.show { display: block; }
+        .su-strength-track {
+            height: 5px;
+            background: var(--border-color);
+            border-radius: var(--radius-pill);
+            overflow: hidden;
+        }
+        .su-strength-fill {
+            height: 100%;
+            width: 0;
+            border-radius: var(--radius-pill);
+            transition: width 0.35s ease, background 0.35s ease;
+        }
+        .su-strength-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            margin-top: 4px;
+            color: var(--text-neutral);
+        }
+
+        /* Terms checkbox */
+        .su-terms-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 4px 0 16px;
+        }
+        .su-terms-row .lf-checkbox-box { margin-top: 2px; flex-shrink: 0; }
+        .su-terms-text {
+            font-size: 0.82rem;
+            color: var(--text-neutral);
+            line-height: 1.5;
+        }
+        .su-terms-text a { color: var(--accent-color); font-weight: 600; text-decoration: none; }
+        .su-terms-text a:hover { text-decoration: underline; }
+        .su-terms-error {
+            font-size: 0.76rem;
+            color: #dc2626;
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            gap: 4px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+        .su-terms-error.show { display: flex; animation: slideErrorIn 0.22s ease; }
+    </style>
+</head>
+<body>
+    <div id="preloader" class="preloader"><div class="paw-loader"><i class="fas fa-paw"></i></div></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-paw"></i> STACKLY</a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="vet-care.html" class="nav-link">Vet Care</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-buttons-mobile">
+                    <a href="login.html" class="btn btn-outline">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </li>
+            </ul>
+            <div class="nav-buttons desktop-only">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+                <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+            <div class="hamburger" id="hamburger"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+    </nav>
+
+    <section class="auth-section">
+        <div class="auth-container">
+
+            <!-- LEFT: Brand / Visual Panel -->
+            <div class="auth-visual-panel" style="background-image: url('src/images/dogs-together.webp');">
+                <div class="auth-visual-content">
+                    <div style="font-size:3rem;margin-bottom:18px;"><i class="fas fa-paw"></i></div>
+                    <h2>Your Pet's Best Life Starts Here</h2>
+                    <p>Join thousands of pet parents who trust STACKLY for world-class pet care, every day.</p>
+                    <ul class="mt-4">
+                        <li><i class="fas fa-check-circle"></i> Faster booking &amp; checkout</li>
+                        <li><i class="fas fa-check-circle"></i> View your pet's service history</li>
+                        <li><i class="fas fa-check-circle"></i> Manage appointments easily</li>
+                        <li><i class="fas fa-check-circle"></i> Access exclusive member offers</li>
+                        <li><i class="fas fa-check-circle"></i> Earn loyalty points on every visit</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- RIGHT: Sign Up Form -->
+            <div class="auth-form-panel">
+
+                <!-- Go Back -->
+                <button onclick="window.location.href='login.html'" class="auth-back-btn">
+                    <i class="fas fa-arrow-left"></i> Go Back
+                </button>
+
+                <!-- Header -->
+                <div class="lf-header">
+                    <a href="index.html" class="lf-brand"><i class="fas fa-paw"></i> STACKLY</a>
+                    <div class="lf-title-block">
+                        <h2>Create Account</h2>
+                        <p>Join STACKLY — it's free and takes 30 seconds.</p>
+                    </div>
+                </div>
+
+                <form id="signup-form" novalidate>
+
+                    <!-- Row 1: First Name + Last Name -->
+                    <div class="su-row">
+                        <div class="form-group lf-group">
+                            <label for="signupFirstName"><i class="fas fa-user"></i> First Name</label>
+                            <div class="lf-input-wrap">
+                                <i class="fas fa-user lf-field-icon"></i>
+                                <input type="text" id="signupFirstName" placeholder="John" required>
+                            </div>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group lf-group">
+                            <label for="signupLastName"><i class="fas fa-user"></i> Last Name</label>
+                            <div class="lf-input-wrap">
+                                <i class="fas fa-user lf-field-icon"></i>
+                                <input type="text" id="signupLastName" placeholder="Doe" required>
+                            </div>
+                            <span class="error-message"></span>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group lf-group">
+                        <label for="signupEmail"><i class="fas fa-envelope"></i> Email Address</label>
+                        <div class="lf-input-wrap">
+                            <i class="fas fa-envelope lf-field-icon"></i>
+                            <input type="email" id="signupEmail" placeholder="you@example.com" required>
+                        </div>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="form-group lf-group">
+                        <label for="signupPhone"><i class="fas fa-phone"></i> Phone Number</label>
+                        <div class="lf-input-wrap">
+                            <i class="fas fa-phone lf-field-icon"></i>
+                            <input type="tel" id="signupPhone" placeholder="+1 (555) 000-0000" required>
+                        </div>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group lf-group">
+                        <label for="signupPassword"><i class="fas fa-lock"></i> Password</label>
+                        <div class="lf-input-wrap">
+                            <i class="fas fa-lock lf-field-icon"></i>
+                            <input type="password" id="signupPassword" placeholder="Min. 8 characters" required>
+                            <i class="fas fa-eye password-toggle-icon lf-eye-icon"></i>
+                        </div>
+                        <div class="su-strength-wrap" id="su-strength-wrap">
+                            <div class="su-strength-track"><div class="su-strength-fill" id="su-strength-fill"></div></div>
+                            <div class="su-strength-label" id="su-strength-label">Weak</div>
+                        </div>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group lf-group">
+                        <label for="signupConfirm"><i class="fas fa-lock"></i> Confirm Password</label>
+                        <div class="lf-input-wrap">
+                            <i class="fas fa-lock lf-field-icon"></i>
+                            <input type="password" id="signupConfirm" placeholder="Re-enter your password" required>
+                            <i class="fas fa-eye password-toggle-icon lf-eye-icon"></i>
+                        </div>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="su-terms-row">
+                        <label class="lf-checkbox-label" style="align-items:flex-start;">
+                            <input type="checkbox" id="signupTerms">
+                            <span class="lf-checkbox-box" style="margin-top:1px;"><i class="fas fa-check"></i></span>
+                        </label>
+                        <span class="su-terms-text">
+                            I agree to STACKLY's
+                            <a href="404.html">Terms of Service</a> and
+                            <a href="404.html">Privacy Policy</a>
+                        </span>
+                    </div>
+                    <div class="su-terms-error" id="su-terms-error">
+                        <i class="fas fa-exclamation-circle"></i> You must accept the terms to continue.
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="lf-submit-btn" id="su-submit-btn">
+                        <i class="fas fa-user-plus"></i> <span>Create Account</span>
+                    </button>
+
+                    <!-- Social divider -->
+                    <div class="social-login-divider"><span>OR SIGN UP WITH</span></div>
+
+                    <!-- Social buttons -->
+                    <div class="lf-social-row">
+                        <a href="404.html" class="lf-social-btn lf-google">
+                            <i class="fab fa-google"></i> Google
+                        </a>
+                        <a href="404.html" class="lf-social-btn lf-facebook">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </a>
+                    </div>
+
+                </form>
+
+                <p class="auth-switch-link">Already have an account? <a href="login.html" style="font-weight:700;color:var(--accent-color);">Login Here</a></p>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const NAME_RE  = /^[A-Za-z\s'\-]{2,}$/;
+        const PHONE_RE = /^[\+]?[\d\s\-\(\)]{7,15}$/;
+
+        const fields = {
+            firstName : document.getElementById('signupFirstName'),
+            lastName  : document.getElementById('signupLastName'),
+            email     : document.getElementById('signupEmail'),
+            phone     : document.getElementById('signupPhone'),
+            password  : document.getElementById('signupPassword'),
+            confirm   : document.getElementById('signupConfirm'),
+        };
+
+        const termsChk   = document.getElementById('signupTerms');
+        const termsErr   = document.getElementById('su-terms-error');
+        const submitBtn  = document.getElementById('su-submit-btn');
+        const strengthWrap = document.getElementById('su-strength-wrap');
+        const strengthFill = document.getElementById('su-strength-fill');
+        const strengthLabel = document.getElementById('su-strength-label');
+
+        // Helpers
+        function setErr(input, msg) {
+            const g = input.closest('.form-group');
+            const span = g.querySelector('.error-message');
+            g.classList.add('error');
+            if (span) span.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${msg}`;
+        }
+        function clrErr(input) {
+            input.closest('.form-group')?.classList.remove('error');
+        }
+
+        // Live clear on input
+        Object.values(fields).forEach(el => el.addEventListener('input', () => clrErr(el)));
+        termsChk.addEventListener('change', () => termsErr.classList.remove('show'));
+
+        // Password strength meter
+        fields.password.addEventListener('input', () => {
+            const val = fields.password.value;
+            if (!val) { strengthWrap.classList.remove('show'); return; }
+            strengthWrap.classList.add('show');
+
+            let score = 0;
+            if (val.length >= 8)              score++;
+            if (/[A-Z]/.test(val))            score++;
+            if (/[0-9]/.test(val))            score++;
+            if (/[^A-Za-z0-9]/.test(val))     score++;
+
+            const levels = [
+                { label: 'Weak',      color: '#ef4444', width: '25%'  },
+                { label: 'Fair',      color: '#f97316', width: '50%'  },
+                { label: 'Good',      color: '#eab308', width: '75%'  },
+                { label: 'Strong',    color: '#22c55e', width: '100%' },
+            ];
+            const lvl = levels[Math.max(0, score - 1)];
+            strengthFill.style.width      = lvl.width;
+            strengthFill.style.background = lvl.color;
+            strengthLabel.textContent     = lvl.label;
+            strengthLabel.style.color     = lvl.color;
+        });
+
+        // Submit
+        document.getElementById('signup-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            let valid = true;
+
+            if (!NAME_RE.test(fields.firstName.value.trim())) {
+                setErr(fields.firstName, 'Enter a valid first name (letters only).');
+                valid = false;
+            }
+            if (!NAME_RE.test(fields.lastName.value.trim())) {
+                setErr(fields.lastName, 'Enter a valid last name (letters only).');
+                valid = false;
+            }
+            if (!fields.email.value.trim()) {
+                setErr(fields.email, 'Email address is required.');
+                valid = false;
+            } else if (!EMAIL_RE.test(fields.email.value)) {
+                setErr(fields.email, 'Enter a valid email address.');
+                valid = false;
+            }
+            if (!fields.phone.value.trim()) {
+                setErr(fields.phone, 'Phone number is required.');
+                valid = false;
+            } else if (!PHONE_RE.test(fields.phone.value.trim())) {
+                setErr(fields.phone, 'Enter a valid phone number.');
+                valid = false;
+            }
+            if (!fields.password.value) {
+                setErr(fields.password, 'Password is required.');
+                valid = false;
+            } else if (fields.password.value.length < 8) {
+                setErr(fields.password, 'Password must be at least 8 characters.');
+                valid = false;
+            }
+            if (!fields.confirm.value) {
+                setErr(fields.confirm, 'Please confirm your password.');
+                valid = false;
+            } else if (fields.confirm.value !== fields.password.value) {
+                setErr(fields.confirm, 'Passwords do not match.');
+                valid = false;
+            }
+            if (!termsChk.checked) {
+                termsErr.classList.add('show');
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            // Loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+
+            setTimeout(() => {
+                if (typeof showToast === 'function') {
+                    showToast('Account created successfully! Please log in.', 'success');
+                }
+                setTimeout(() => { window.location.href = 'login.html'; }, 1200);
+            }, 1400);
+        });
+    </script>
+</body>
+</html>
