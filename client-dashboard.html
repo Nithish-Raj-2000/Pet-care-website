@@ -15,6 +15,12 @@
         body { background: var(--light-bg); }
         .tab-panel { display: none; }
         .tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
+        .appt-sub-panel { display: none; }
+        .appt-sub-panel.active { display: block; animation: fadeIn 0.3s ease; }
+        .appt-empty-state { text-align: center; padding: 60px 24px; }
+        .appt-empty-state i { font-size: 3rem; color: var(--border-color); margin-bottom: 16px; display: block; }
+        .appt-empty-state h4 { margin: 0 0 8px; color: var(--text-main); }
+        .appt-empty-state p { margin: 0; color: var(--text-neutral); font-size: 0.9rem; }
         .tab-nav { display: flex; gap: 4px; background: var(--light-bg); padding: 6px; border-radius: var(--radius-md); margin-bottom: 28px; flex-wrap: wrap; }
         .tab-nav-btn {
             flex: 1; min-width: 100px; padding: 10px 16px; border: none; background: transparent;
@@ -45,6 +51,9 @@
             font-family: var(--font-body); font-size: 0.92rem; outline: none; transition: all var(--transition-fast);
         }
         .profile-input:focus { border-color: var(--accent-color); background: var(--card-bg); box-shadow: 0 0 0 3px rgba(255,125,138,0.12); }
+        .profile-input.p-error { border-color: #dc2626 !important; background: rgba(220,38,38,0.04); }
+        .profile-err-msg { font-size: 0.74rem; color: #dc2626; font-weight: 600; margin-top: 5px; display: none; align-items: center; gap: 4px; }
+        .profile-err-msg.show { display: flex; }
         .profile-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-neutral); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
         .add-pet-btn { border: 2px dashed var(--border-color); background: transparent; border-radius: var(--radius-md); padding: 20px; width: 100%; cursor: pointer; color: var(--text-neutral); font-family: var(--font-body); font-weight: 600; transition: all var(--transition-fast); display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
         .add-pet-btn:hover { border-color: var(--accent-color); color: var(--accent-color); background: rgba(255,125,138,0.05); }
@@ -484,7 +493,7 @@
                         <button class="tab-nav-btn" data-tab-target="appt-past"><i class="fas fa-history"></i> Past</button>
                     </div>
 
-                    <div class="tab-panel active" id="appt-upcoming">
+                    <div class="appt-sub-panel" id="appt-upcoming">
                         <div class="dash-card">
                             <div class="dash-card-body" style="padding:0;">
                                 <table class="data-table">
@@ -529,8 +538,13 @@
                         </div>
                     </div>
 
-                    <div class="tab-panel" id="appt-past">
-                        <div class="dash-card">
+                    <div class="appt-sub-panel" id="appt-past">
+                        <div class="appt-empty-state" id="appt-no-past" style="display:none;">
+                            <i class="fas fa-calendar-times"></i>
+                            <h4>No Past Bookings</h4>
+                            <p>You don't have any completed or past appointments yet.</p>
+                        </div>
+                        <div class="dash-card" id="appt-past-table">
                             <div class="dash-card-body" style="padding:0;">
                                 <table class="data-table">
                                     <thead>
@@ -754,56 +768,67 @@
                     <h3 class="title" style="margin-bottom:8px;">Profile Settings</h3>
                     <p style="margin-bottom:28px;">Update your personal information and account preferences.</p>
                     <div class="dashboard-grid-2">
+                        <!-- Personal Information -->
                         <div class="dash-card reveal">
                             <div class="dash-card-header"><h4><i class="fas fa-user" style="color:var(--accent-color);margin-right:8px;"></i> Personal Information</h4></div>
                             <div class="dash-card-body">
                                 <div class="profile-form-grid">
                                     <div>
                                         <label class="profile-label">First Name</label>
-                                        <input class="profile-input" type="text" value="Sarah">
+                                        <input class="profile-input" type="text" id="prof-fname" value="Sarah">
+                                        <span class="profile-err-msg" id="prof-fname-err"><i class="fas fa-exclamation-circle"></i> <span></span></span>
                                     </div>
                                     <div>
                                         <label class="profile-label">Last Name</label>
-                                        <input class="profile-input" type="text" value="Jenkins">
+                                        <input class="profile-input" type="text" id="prof-lname" value="Jenkins">
+                                        <span class="profile-err-msg" id="prof-lname-err"><i class="fas fa-exclamation-circle"></i> <span></span></span>
                                     </div>
                                     <div class="full-width">
                                         <label class="profile-label">Email Address</label>
                                         <input class="profile-input" type="email" id="profileEmail" value="sarah.jenkins@email.com">
+                                        <span class="profile-err-msg" id="prof-email-err"><i class="fas fa-exclamation-circle"></i> <span></span></span>
                                     </div>
                                     <div>
                                         <label class="profile-label">Phone Number</label>
-                                        <input class="profile-input" type="tel" value="+1 (555) 012-3456">
+                                        <input class="profile-input" type="tel" id="prof-phone" value="+1 (555) 012-3456">
+                                        <span class="profile-err-msg" id="prof-phone-err"><i class="fas fa-exclamation-circle"></i> <span></span></span>
                                     </div>
                                     <div>
                                         <label class="profile-label">City</label>
-                                        <input class="profile-input" type="text" value="New York">
+                                        <input class="profile-input" type="text" id="prof-city" value="New York">
+                                        <span class="profile-err-msg" id="prof-city-err"><i class="fas fa-exclamation-circle"></i> <span></span></span>
                                     </div>
                                     <div class="full-width">
                                         <label class="profile-label">Address</label>
-                                        <input class="profile-input" type="text" value="45 Park Ave, NY 10016">
+                                        <input class="profile-input" type="text" id="prof-addr" value="45 Park Ave, NY 10016">
+                                        <span class="profile-err-msg" id="prof-addr-err"><i class="fas fa-exclamation-circle"></i> <span></span></span>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary mt-3" onclick="showToast('Profile updated successfully!', 'success')">
+                                <button class="btn btn-primary mt-3" id="prof-save-btn">
                                     <i class="fas fa-save"></i> Save Changes
                                 </button>
                             </div>
                         </div>
+                        <!-- Security + Notifications -->
                         <div class="dash-card reveal">
                             <div class="dash-card-header"><h4><i class="fas fa-shield-alt" style="color:var(--accent-color);margin-right:8px;"></i> Security</h4></div>
                             <div class="dash-card-body">
                                 <div style="margin-bottom:20px;">
                                     <label class="profile-label">Current Password</label>
-                                    <input class="profile-input" type="password" placeholder="Enter current password">
+                                    <input class="profile-input" type="password" id="prof-curr-pwd" placeholder="Enter current password">
+                                    <span class="profile-err-msg" id="prof-curr-pwd-err"><i class="fas fa-exclamation-circle"></i> <span></span></span>
                                 </div>
                                 <div style="margin-bottom:20px;">
                                     <label class="profile-label">New Password</label>
-                                    <input class="profile-input" type="password" placeholder="Enter new password">
+                                    <input class="profile-input" type="password" id="prof-new-pwd" placeholder="Enter new password">
+                                    <span class="profile-err-msg" id="prof-new-pwd-err"><i class="fas fa-exclamation-circle"></i> <span></span></span>
                                 </div>
                                 <div style="margin-bottom:20px;">
                                     <label class="profile-label">Confirm New Password</label>
-                                    <input class="profile-input" type="password" placeholder="Confirm new password">
+                                    <input class="profile-input" type="password" id="prof-conf-pwd" placeholder="Confirm new password">
+                                    <span class="profile-err-msg" id="prof-conf-pwd-err"><i class="fas fa-exclamation-circle"></i> <span></span></span>
                                 </div>
-                                <button class="btn btn-primary btn-block" onclick="showToast('Password updated successfully!', 'success')">
+                                <button class="btn btn-primary btn-block" id="prof-pwd-btn">
                                     <i class="fas fa-lock"></i> Update Password
                                 </button>
                                 <hr style="margin:24px 0;border-color:var(--border-color);">
@@ -840,9 +865,9 @@
             const user = raw ? JSON.parse(raw) : null;
             if (!user) return;
 
-            const { email, displayName, initials } = user;
+            const { email, displayName, initials, firstName, lastName, phone } = user;
 
-            const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+            const set    = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
             const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
 
             set('sidebarInitials', initials);
@@ -851,6 +876,9 @@
             set('topbarAvatar', initials);
             set('welcomeHeading', `Welcome Back, ${displayName}!`);
             setVal('profileEmail', email);
+            if (firstName) setVal('prof-fname', firstName);
+            if (lastName)  setVal('prof-lname', lastName);
+            if (phone)     setVal('prof-phone', phone);
         })();
 
         // Redirect all action buttons and links to 404.html
@@ -863,7 +891,6 @@
                 el.id === 'theme-toggle'         ||
                 el.id === 'sidebar-toggle'        ||
                 el.id === 'sidebar-close'         ||
-                el.classList.contains('tab-nav-btn') ||
                 el.classList.contains('sidebar-nav-link') ||
                 el.closest('.sidebar-nav-link')
             ) return;
@@ -877,18 +904,17 @@
             window.location.href = '404.html';
         });
 
-        // Sidebar nav: clickable but non-functional (except logout)
+        // Sidebar nav: prevent default only for hash links; real hrefs navigate normally
         document.querySelectorAll('.sidebar-nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 const href = link.getAttribute('href') || '';
-                if (href === 'login.html') return;
+                if (href && href !== '#') return;
                 e.preventDefault();
-                e.stopImmediatePropagation();
             });
         });
 
-        // Tab switching for sidebar links
-        document.querySelectorAll('[data-tab-target]').forEach(link => {
+        // Tab switching for sidebar links and view-all links (not sub-tab buttons)
+        document.querySelectorAll('[data-tab-target]:not(.tab-nav-btn)').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const target = link.getAttribute('data-tab-target');
@@ -908,13 +934,20 @@
                 const firstSubTab = panel?.querySelector('.tab-nav-btn');
                 if (firstSubTab) {
                     panel.querySelectorAll('.tab-nav-btn').forEach(b => b.classList.remove('active'));
-                    panel.querySelectorAll('.tab-panel').forEach(p2 => p2.classList.remove('active'));
+                    panel.querySelectorAll('.appt-sub-panel').forEach(p2 => {
+                        p2.classList.remove('active');
+                        p2.style.display = 'none';
+                    });
                     firstSubTab.classList.add('active');
                     const subId = firstSubTab.getAttribute('data-tab-target');
                     const subPanel = document.getElementById(subId);
-                    if (subPanel) subPanel.classList.add('active');
+                    if (subPanel) {
+                        subPanel.classList.add('active');
+                        subPanel.style.display = 'block';
+                    }
                 }
 
+                history.replaceState(null, '', '#' + target);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
@@ -924,13 +957,146 @@
             btn.addEventListener('click', () => {
                 const parent = btn.closest('.tab-panel');
                 parent.querySelectorAll('.tab-nav-btn').forEach(b => b.classList.remove('active'));
-                parent.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                parent.querySelectorAll('.appt-sub-panel').forEach(p => {
+                    p.classList.remove('active');
+                    p.style.display = 'none';
+                });
                 btn.classList.add('active');
                 const id = btn.getAttribute('data-tab-target');
-                const el = document.getElementById(id);
-                if (el) el.classList.add('active');
+                const target = document.getElementById(id);
+                if (target) {
+                    target.classList.add('active');
+                    target.style.display = 'block';
+                    const noPast = document.getElementById('appt-no-past');
+                    const pastTable = document.getElementById('appt-past-table');
+                    if (noPast && pastTable) {
+                        const hasRows = pastTable.querySelectorAll('tbody tr').length > 0;
+                        noPast.style.display = hasRows ? 'none' : 'block';
+                        pastTable.style.display = hasRows ? '' : 'none';
+                    }
+                }
             });
         });
+
+        // Restore active tab from URL hash on load (e.g. after history.back() from 404)
+        (function () {
+            const hash = location.hash.slice(1);
+            if (!hash) return;
+            const panel = document.getElementById(hash);
+            if (!panel || !panel.classList.contains('tab-panel')) return;
+            document.querySelectorAll('.dashboard-content > .tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.sidebar-nav-link').forEach(l => l.classList.remove('active'));
+            panel.classList.add('active');
+            document.querySelectorAll(`.sidebar-nav-link[data-tab-target="${hash}"]`).forEach(l => l.classList.add('active'));
+            // Re-init sub-tabs inside the restored panel
+            const firstSubBtn = panel.querySelector('.tab-nav-btn');
+            if (firstSubBtn) {
+                panel.querySelectorAll('.tab-nav-btn').forEach(b => b.classList.remove('active'));
+                panel.querySelectorAll('.appt-sub-panel').forEach(p2 => { p2.classList.remove('active'); p2.style.display = 'none'; });
+                firstSubBtn.classList.add('active');
+                const subPanel = document.getElementById(firstSubBtn.getAttribute('data-tab-target'));
+                if (subPanel) { subPanel.classList.add('active'); subPanel.style.display = 'block'; }
+            }
+        })();
+
+        // Profile Settings — validation
+        (function () {
+            const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const PHONE_RE = /^[\+]?[\d\s\-\(\)]{7,15}$/;
+
+            function setErr(inputId, errId, msg) {
+                const inp = document.getElementById(inputId);
+                const err = document.getElementById(errId);
+                if (inp) inp.classList.add('p-error');
+                if (err) { err.querySelector('span').textContent = msg; err.classList.add('show'); }
+            }
+            function clrErr(inputId, errId) {
+                const inp = document.getElementById(inputId);
+                const err = document.getElementById(errId);
+                if (inp) inp.classList.remove('p-error');
+                if (err) { err.querySelector('span').textContent = ''; err.classList.remove('show'); }
+            }
+
+            // Live clear on typing
+            [['prof-fname','prof-fname-err'],['prof-lname','prof-lname-err'],
+             ['profileEmail','prof-email-err'],['prof-phone','prof-phone-err'],
+             ['prof-city','prof-city-err'],['prof-addr','prof-addr-err']].forEach(([iId, eId]) => {
+                const el = document.getElementById(iId);
+                if (el) el.addEventListener('input', () => clrErr(iId, eId));
+            });
+            [['prof-curr-pwd','prof-curr-pwd-err'],['prof-new-pwd','prof-new-pwd-err'],
+             ['prof-conf-pwd','prof-conf-pwd-err']].forEach(([iId, eId]) => {
+                const el = document.getElementById(iId);
+                if (el) el.addEventListener('input', () => clrErr(iId, eId));
+            });
+
+            // Save Changes
+            const saveBtn = document.getElementById('prof-save-btn');
+            if (saveBtn) {
+                saveBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    let ok = true;
+                    const fname   = document.getElementById('prof-fname').value.trim();
+                    const lname   = document.getElementById('prof-lname').value.trim();
+                    const email   = document.getElementById('profileEmail').value.trim();
+                    const phone   = document.getElementById('prof-phone').value.trim();
+                    const city    = document.getElementById('prof-city').value.trim();
+                    const address = document.getElementById('prof-addr').value.trim();
+
+                    [['prof-fname','prof-fname-err'],['prof-lname','prof-lname-err'],
+                     ['profileEmail','prof-email-err'],['prof-phone','prof-phone-err'],
+                     ['prof-city','prof-city-err'],['prof-addr','prof-addr-err']].forEach(([i,e2]) => clrErr(i,e2));
+
+                    if (fname.length < 2)           { setErr('prof-fname',  'prof-fname-err',  'Enter a valid first name.'); ok = false; }
+                    if (lname.length < 2)           { setErr('prof-lname',  'prof-lname-err',  'Enter a valid last name.'); ok = false; }
+                    if (!email)                     { setErr('profileEmail','prof-email-err',  'Email is required.'); ok = false; }
+                    else if (!EMAIL_RE.test(email)) { setErr('profileEmail','prof-email-err',  'Enter a valid email address.'); ok = false; }
+                    if (!phone)                     { setErr('prof-phone',  'prof-phone-err',  'Phone number is required.'); ok = false; }
+                    else if (!PHONE_RE.test(phone)) { setErr('prof-phone',  'prof-phone-err',  'Enter a valid phone number.'); ok = false; }
+                    if (!city)                      { setErr('prof-city',   'prof-city-err',   'City is required.'); ok = false; }
+                    if (!address)                   { setErr('prof-addr',   'prof-addr-err',   'Address is required.'); ok = false; }
+
+                    if (!ok) return;
+                    showToast('Profile updated successfully! Redirecting…', 'success');
+                    setTimeout(() => { window.location.href = '404.html'; }, 1600);
+                });
+            }
+
+            // Update Password
+            const pwdBtn = document.getElementById('prof-pwd-btn');
+            if (pwdBtn) {
+                pwdBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    let ok = true;
+                    const curr   = document.getElementById('prof-curr-pwd').value;
+                    const newPwd = document.getElementById('prof-new-pwd').value;
+                    const conf   = document.getElementById('prof-conf-pwd').value;
+
+                    const sessionUser  = JSON.parse(sessionStorage.getItem('stacklyUser') || '{}');
+                    const storedPwd    = sessionUser.password || '';
+
+                    [['prof-curr-pwd','prof-curr-pwd-err'],['prof-new-pwd','prof-new-pwd-err'],
+                     ['prof-conf-pwd','prof-conf-pwd-err']].forEach(([i,e2]) => clrErr(i,e2));
+
+                    if (!curr)                              { setErr('prof-curr-pwd','prof-curr-pwd-err','Current password is required.'); ok = false; }
+                    else if (storedPwd && curr !== storedPwd) { setErr('prof-curr-pwd','prof-curr-pwd-err','Incorrect current password.'); ok = false; }
+                    if (!newPwd)                            { setErr('prof-new-pwd', 'prof-new-pwd-err', 'New password is required.'); ok = false; }
+                    else if (newPwd.length < 8)             { setErr('prof-new-pwd', 'prof-new-pwd-err', 'Minimum 8 characters required.'); ok = false; }
+                    if (!conf)                              { setErr('prof-conf-pwd','prof-conf-pwd-err','Please confirm your new password.'); ok = false; }
+                    else if (conf !== newPwd)               { setErr('prof-conf-pwd','prof-conf-pwd-err','Passwords do not match.'); ok = false; }
+
+                    if (!ok) return;
+                    // Persist updated password in session
+                    sessionUser.password = newPwd;
+                    sessionStorage.setItem('stacklyUser', JSON.stringify(sessionUser));
+                    document.getElementById('prof-curr-pwd').value = '';
+                    document.getElementById('prof-new-pwd').value  = '';
+                    document.getElementById('prof-conf-pwd').value = '';
+                    showToast('Password updated successfully! Redirecting…', 'success');
+                    setTimeout(() => { window.location.href = '404.html'; }, 1600);
+                });
+            }
+        })();
 
     </script>
 </body>

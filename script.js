@@ -423,12 +423,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const dest  = role === 'admin' ? 'admin-dashboard.html' : 'client-dashboard.html';
             const label = role === 'admin' ? 'Admin Dashboard' : 'Dashboard';
 
-            // Derive display name from email (e.g. john.doe@mail.com → John Doe)
-            const namePart = email.split('@')[0].replace(/[._-]+/g, ' ');
-            const displayName = namePart.replace(/\b\w/g, c => c.toUpperCase());
-            const initials = displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+            // Validate password against stored signup data (if the same email was registered)
+            const stored = JSON.parse(localStorage.getItem('stacklySignup') || 'null');
+            if (stored && stored.email === email && stored.password !== passInput.value) {
+                setErr(passInput, 'Incorrect password. Please try again.');
+                return;
+            }
 
-            sessionStorage.setItem('stacklyUser', JSON.stringify({ email, role, displayName, initials }));
+            // Derive display name from email (e.g. john.doe@mail.com → John Doe)
+            const namePart    = email.split('@')[0].replace(/[._-]+/g, ' ');
+            const displayName = namePart.replace(/\b\w/g, c => c.toUpperCase());
+            const initials    = displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
+            const isKnown  = stored && stored.email === email;
+            const firstName = isKnown ? stored.firstName : (namePart.split(' ')[0] || '');
+            const lastName  = isKnown ? stored.lastName  : (namePart.split(' ')[1] || '');
+            const phone     = isKnown ? stored.phone     : '';
+            const password  = isKnown ? stored.password  : passInput.value;
+
+            sessionStorage.setItem('stacklyUser', JSON.stringify({ email, role, displayName, initials, firstName, lastName, phone, password }));
 
             const btn = loginForm.querySelector('button[type="submit"]');
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging In...';

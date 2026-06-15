@@ -923,7 +923,8 @@
                 el.id === 'sidebar-close'         ||
                 el.classList.contains('tab-nav-btn') ||
                 el.classList.contains('sidebar-nav-link') ||
-                el.closest('.sidebar-nav-link')
+                el.closest('.sidebar-nav-link')          ||
+                el.hasAttribute('data-tab-target')
             ) return;
 
             // Allow logout
@@ -935,18 +936,17 @@
             window.location.href = '404.html';
         });
 
-        // Sidebar nav: clickable but non-functional (except logout)
+        // Sidebar nav: prevent default only for hash links; real hrefs navigate normally
         document.querySelectorAll('.sidebar-nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 const href = link.getAttribute('href') || '';
-                if (href === 'login.html') return;
+                if (href && href !== '#') return;
                 e.preventDefault();
-                e.stopImmediatePropagation();
             });
         });
 
-        // Tab switching
-        document.querySelectorAll('[data-tab-target]').forEach(link => {
+        // Tab switching for sidebar links (not sub-tab buttons)
+        document.querySelectorAll('[data-tab-target]:not(.tab-nav-btn)').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const target = link.getAttribute('data-tab-target');
@@ -955,6 +955,7 @@
                 const panel = document.getElementById(target);
                 if (panel) panel.classList.add('active');
                 document.querySelectorAll(`.sidebar-nav-link[data-tab-target="${target}"]`).forEach(l => l.classList.add('active'));
+                history.replaceState(null, '', '#' + target);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 // Animate revenue chart bars on analytics
                 if (target === 'analytics' || target === 'overview') {
@@ -975,6 +976,18 @@
         window.addEventListener('load', () => {
             setTimeout(animateRevBars, 600);
         });
+
+        // Restore active tab from URL hash on load (e.g. after history.back() from 404)
+        (function () {
+            const hash = location.hash.slice(1);
+            if (!hash) return;
+            const panel = document.getElementById(hash);
+            if (!panel || !panel.classList.contains('tab-panel')) return;
+            document.querySelectorAll('.dashboard-content > .tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.sidebar-nav-link').forEach(l => l.classList.remove('active'));
+            panel.classList.add('active');
+            document.querySelectorAll(`.sidebar-nav-link[data-tab-target="${hash}"]`).forEach(l => l.classList.add('active'));
+        })();
 
     </script>
 </body>

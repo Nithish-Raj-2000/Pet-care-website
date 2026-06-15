@@ -137,7 +137,7 @@
             <div class="auth-form-panel">
 
                 <!-- Go Back -->
-                <button onclick="window.location.href='login.html'" class="auth-back-btn">
+                <button onclick="history.back()" class="auth-back-btn">
                     <i class="fas fa-arrow-left"></i> Go Back
                 </button>
 
@@ -369,6 +369,15 @@
             }
 
             if (!valid) return;
+
+            // Persist signup data so login + dashboard can use it
+            localStorage.setItem('stacklySignup', JSON.stringify({
+                firstName : fields.firstName.value.trim(),
+                lastName  : fields.lastName.value.trim(),
+                email     : fields.email.value.trim(),
+                phone     : fields.phone.value.trim(),
+                password  : fields.password.value
+            }));
 
             // Loading state
             submitBtn.disabled = true;
