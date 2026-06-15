@@ -341,13 +341,11 @@ img {
 }
 
 .logo {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--primary-color);
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    text-decoration: none;
     transition: var(--transition-fast);
 }
 
@@ -355,9 +353,26 @@ img {
     transform: scale(1.03);
 }
 
-[data-theme="dark"] .logo { color: var(--text-light); }
+.logo-img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    /* shifts white logo to #FF537B */
+    filter: brightness(0) saturate(100%) invert(54%) sepia(100%) hue-rotate(307deg) saturate(345%) brightness(107%);
+}
 
-.logo i { color: var(--accent-color); }
+.logo-tagline {
+    font-family: var(--font-heading);
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+[data-theme="dark"] .logo-tagline { color: var(--accent-color); }
 
 .nav-menu {
     display: flex;
@@ -2593,17 +2608,14 @@ section { padding: 68px 0; }
 
 .lf-brand {
     display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-heading);
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: var(--primary-color);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
     text-decoration: none;
     margin-bottom: 10px;
 }
 
-.lf-brand i { color: var(--accent-color); }
+.lf-brand .logo-img { height: 38px; }
 
 .lf-title-block h2 {
     font-size: 1.75rem;
@@ -3101,18 +3113,61 @@ section { padding: 68px 0; }
 }
 
 .footer-contact ul li {
-    margin-bottom: 14px;
+    margin-bottom: 10px;
     display: flex;
     align-items: flex-start;
     gap: 12px;
     color: #aaaaaa;
     font-size: 0.92rem;
+    padding: 9px 12px 9px 8px;
+    margin-left: -8px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.footer-contact ul li::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(255,83,123,0.15), rgba(255,83,123,0.04));
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.footer-contact ul li::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+    transition: left 0.5s ease;
+}
+
+.footer-contact ul li:hover::before { opacity: 1; }
+.footer-contact ul li:hover::after  { left: 160%; }
+
+.footer-contact ul li:hover {
+    color: #ffffff;
+    transform: translateX(7px);
+    box-shadow: -3px 0 0 #FF537B;
 }
 
 .footer-contact i {
     color: var(--accent-color);
     margin-top: 3px;
     flex-shrink: 0;
+    transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.footer-contact ul li:hover i {
+    transform: scale(1.3) rotate(-8deg);
+    color: #FF537B;
+    text-shadow: 0 0 14px rgba(255,83,123,0.75);
 }
 
 .footer-newsletter p {
@@ -3430,7 +3485,46 @@ section { padding: 68px 0; }
     flex-wrap: wrap;
 }
 
-.banner-stat { text-align: center; }
+.banner-stat {
+    text-align: center;
+    padding: 14px 20px;
+    border-radius: 16px;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transition: transform 0.35s cubic-bezier(.22,.68,0,1.4), border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.banner-stat::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,83,123,0.28), rgba(255,83,123,0.06));
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.banner-stat::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.55s ease;
+    pointer-events: none;
+}
+
+.banner-stat:hover::before { opacity: 1; }
+.banner-stat:hover::after  { left: 160%; }
+
+.banner-stat:hover {
+    transform: translateY(-10px) scale(1.08);
+    border-color: rgba(255,83,123,0.5);
+    box-shadow: 0 16px 40px rgba(255,83,123,0.4), 0 0 0 1px rgba(255,83,123,0.25), inset 0 1px 0 rgba(255,255,255,0.12);
+}
 
 .banner-stat-value {
     display: block;
@@ -3440,6 +3534,14 @@ section { padding: 68px 0; }
     font-family: var(--font-heading);
     line-height: 1;
     text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    transition: color 0.35s ease, transform 0.35s ease, text-shadow 0.35s ease;
+    position: relative;
+}
+
+.banner-stat:hover .banner-stat-value {
+    color: #FF537B;
+    text-shadow: 0 0 24px rgba(255,83,123,0.65);
+    transform: scale(1.14);
 }
 
 .banner-stat-label {
@@ -3450,6 +3552,13 @@ section { padding: 68px 0; }
     margin-top: 5px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    position: relative;
+    transition: color 0.35s ease, letter-spacing 0.35s ease;
+}
+
+.banner-stat:hover .banner-stat-label {
+    color: rgba(255,255,255,0.95);
+    letter-spacing: 1px;
 }
 
 .banner-stat-sep {
@@ -3457,7 +3566,10 @@ section { padding: 68px 0; }
     height: 36px;
     background: rgba(255,255,255,0.18);
     flex-shrink: 0;
+    transition: opacity 0.35s ease;
 }
+
+.banner-stat:hover ~ .banner-stat-sep { opacity: 0.4; }
 
 .banner-cta {
     margin-top: 32px;
@@ -3529,18 +3641,24 @@ section { padding: 68px 0; }
 }
 
 .sidebar-logo {
-    padding: 24px 28px;
+    padding: 20px 28px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: 1.3rem;
-    color: white;
 }
 
-.sidebar-logo i { color: var(--accent-color); }
+.sidebar-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+}
+
+.sidebar-brand .logo-img { height: 34px; }
+
+.sidebar-brand .logo-tagline { color: rgba(255,255,255,0.7); }
 
 /* X close button — hidden on desktop, shown on mobile */
 .sidebar-close-btn {
